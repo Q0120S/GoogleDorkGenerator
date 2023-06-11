@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Search Dorks Generator</title>
+
+    <!-- Bootstrap stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    
+    <!-- CSS stylesheets -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body class="light-mode">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" id="top-link" href="#">Google Dork Generator</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>Google Dork Generator</h1>
+
+      <div class="card">
+        <div class="card-header">Enter a domain</div>
+        <div class="card-body">
+          <input
+            type="text"
+            class="form-control"
+            id="domain"
+            placeholder="Enter Domain"
+          />
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header">Add your Dorks</div>
+        <div class="card-body">
+          <textarea
+            class="form-control"
+            id="userDorks"
+            placeholder="Add your own Dorks"
+            row="1"
+            oninput="autoSize(this)"
+          ></textarea>
+        </div>
+      </div>
+
+      <button class="btn btn-primary button mt-3" onclick="generateLinks()">
+        Generate Dorks Link
+      </button>
+
+      <div class="results mt-3" id="results"></div>
+    </div>
+
+    <!-- Bootstrap and jQuery JavaScript files -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+      function generateLinks() {
+        var domain = document.getElementById("domain").value.trim();
+
+        // Default dorks
+        var dorks = ["inurl:&"];
+
+        // Add user's dorks if provided
+        var userDorks = document.getElementById("userDorks").value.trim();
+        if (userDorks !== "") {
+          dorks = dorks.concat(userDorks.split("\n"));
+        }
+
+        var resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+
+        var links = new Set(); // Use a Set to store unique links
+
+        dorks.forEach(function (dork) {
+          var fullDork = "site:" + domain + " " + dork;
+          var link =
+            "https://www.google.com/search?q=" + encodeURIComponent(fullDork);
+
+          // Check if link already exists in the Set
+          if (!links.has(link)) {
+            links.add(link); // Add the link to the Set
+
+            // Create a new div element for the result line
+            var resultLine = document.createElement("div");
+            resultLine.className = "result-line bg-lightblue p-2 mb-1 rounded";
+
+            // Create a new link element for the full dork
+            var linkElement = document.createElement("a");
+            linkElement.href = link;
+            linkElement.class = "dork-link";
+            linkElement.target = "_blank";
+            linkElement.textContent = fullDork;
+
+            // Append the link element to the result line
+            resultLine.appendChild(linkElement);
+
+            // Append the result line to the results div
+            resultsDiv.appendChild(resultLine);
+          }
+        });
+      }
+
+      function autoSize(textarea) {
+        // Set minimum number of rows to show some content even when empty
+        const minRows = 1;
+
+        // Set maximum number of rows to prevent infinite growth
+        const maxRows = 10;
+
+        // Calculate new number of rows based on content
+        const currentRows = textarea.rows;
+        textarea.rows = minRows; // set to minimum to get scrollHeight without scrollbar
+        const desiredRows = Math.min(
+          maxRows,
+          Math.ceil(textarea.scrollHeight / textarea.clientHeight)
+        );
+
+        // Only update if necessary to avoid infinite loop
+        if (currentRows !== desiredRows) {
+          textarea.rows = desiredRows;
+        }
+      }
+    </script>
+  </body>
+</html>
