@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>Google Dork Generator</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <!-- Bootstrap stylesheets -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-    
+
     <!-- CSS stylesheets -->
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
@@ -65,7 +65,19 @@
         var domain = document.getElementById("domain").value.trim();
 
         // Default dorks
-        var dorks = ["inurl:&"];
+        var dorks = [
+          'inurl:&',
+          'ext:php | ext:aspx | ext:asp | ext:jsp | ext:html | ext:htm',
+          'ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:xml',
+          'inurl:url= | inurl:return= | inurl:next= | inurl:redir= inurl:http',
+          'inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain= | inurl:page= inurl:&',
+          'inurl:config | inurl:env | inurl:setting | inurl:backup | inurl:admin | inurl:php',
+          'inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:&',
+          'inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer',
+          'inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read= | inurl:ping= inurl:&',
+          'inurl:(unsubscribe|register|feedback|signup|join|contact|profile|user|comment|api|developer|affiliate|upload|mobile|upgrade|password)',
+          'intitle:"Welcome to Nginx"'
+        ];
 
         // Add user's dorks if provided
         var userDorks = document.getElementById("userDorks").value.trim();
