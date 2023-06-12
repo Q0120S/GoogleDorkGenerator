@@ -23,14 +23,16 @@ body {
     display: inline-block;
     border-radius: 25px;
     padding: 10px 20px;
-    background-color: lightgrey;
-    color: black;
+    background-color: black;
+    color: white;
     text-decoration: none;
     overflow: hidden;
   }
 
   .button {
     margin-top: 10px;
+    background-color: rgb(47, 44, 44);
+    border: 1px solid rgb(47, 44, 44);
   }
 
   .result-line {
